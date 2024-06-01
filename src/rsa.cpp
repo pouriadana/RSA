@@ -1,9 +1,14 @@
-#include <array>
 #include <format>
 #include <iostream>
+#include <string>
+#include <string_view>
 #include <vector>
 
 int modularPow(int message, int encryption_exponent, int modulus_n);
+int encrypt(int plaintext, int e, int mod);
+int decrypt(int cipher, int d, int mod);
+void encrypt_string(std::string_view plaintext, std::vector<int>& ciphertext, int e, int m);
+std::string decrypt_string(const std::vector<int>& ciphertext, int d, int m);
 
 bool isPrime(int n);
 int gcd(int a, int b);
@@ -92,8 +97,27 @@ int main()
         std::cin >> plain_text;
     }
 
-    int cipher_text{modularPow(plain_text, encryption_exponent, modulus_n)};
+    int cipher_text{encrypt(plain_text, encryption_exponent, modulus_n)};
     std::cout << "The cipher text is: " << cipher_text << '\n';
+
+    int decrypted{decrypt(cipher_text, d, modulus_n)};
+    std::cout << "The decrypted text is: " << decrypted << '\n';
+
+    std::cout << "Enter a string to encrypt: ";
+    std::cin.ignore();
+    std::string string_plaintext;
+    std::getline(std::cin, string_plaintext);
+
+    std::vector<int> string_ciphertext{};
+    encrypt_string(string_plaintext, string_ciphertext, encryption_exponent, modulus_n);
+    std::string encrypted_string{};
+    for (const auto character : string_ciphertext)
+    {
+        encrypted_string += character;
+    }
+    std::cout << encrypted_string << '\n';
+
+    std::cout << decrypt_string(string_ciphertext, d, modulus_n) << '\n';
 }
 
 bool isPrime(int n)
@@ -141,4 +165,31 @@ int modularPow(int message, int encryption_exponent, int modulus_n)
         c = message * c % modulus_n;
     }
     return c;
+}
+
+int encrypt(int m, int e, int mod)
+{
+    return modularPow(m, e, mod);
+}
+
+int decrypt(int cipher, int d, int mod)
+{
+    return modularPow(cipher, d, mod);
+}
+
+void encrypt_string(std::string_view plaintext, std::vector<int>& ciphertext, int e, int m)
+{
+    for (const auto& character : plaintext)
+    {
+        ciphertext.push_back(encrypt(character, e, m));
+    }
+}
+std::string decrypt_string(const std::vector<int>& ciphertext, int d, int m)
+{
+    std::string s{};
+    for (const auto& ascii : ciphertext)
+    {
+        s += decrypt(ascii, d, m);
+    }
+    return s;
 }
