@@ -5,11 +5,13 @@
 #include <string_view>
 #include <vector>
 
-boost::multiprecision::cpp_int modularPow(boost::multiprecision::cpp_int message, boost::multiprecision::cpp_int encryption_exponent, boost::multiprecision::cpp_int modulus_n);
-boost::multiprecision::cpp_int encrypt(boost::multiprecision::cpp_int plaintext, boost::multiprecision::cpp_int e, boost::multiprecision::cpp_int mod);
-boost::multiprecision::cpp_int decrypt(boost::multiprecision::cpp_int cipher, boost::multiprecision::cpp_int d, boost::multiprecision::cpp_int mod);
-void encrypt_string(std::string_view plaintext, std::vector<boost::multiprecision::cpp_int>& ciphertext, boost::multiprecision::cpp_int e, boost::multiprecision::cpp_int m);
-std::string decrypt_string(const std::vector<boost::multiprecision::cpp_int>& ciphertext, boost::multiprecision::cpp_int d, boost::multiprecision::cpp_int m);
+using cpp_int = boost::multiprecision::cpp_int;
+
+cpp_int modularPow(cpp_int message, cpp_int encryption_exponent, cpp_int modulus_n);
+cpp_int encrypt(cpp_int plaintext, cpp_int e, cpp_int mod);
+cpp_int decrypt(cpp_int cipher, cpp_int d, cpp_int mod);
+void encrypt_string(std::string_view plaintext, std::vector<cpp_int>& ciphertext, cpp_int e, cpp_int m);
+std::string decrypt_string(const std::vector<cpp_int>& ciphertext, cpp_int d, cpp_int m);
 
 bool isPrime(int n);
 int gcd(int a, int b);
@@ -34,16 +36,16 @@ int main()
         std::cin >> q;
     }
 
-    boost::multiprecision::cpp_int modulus_n{p * q};
+    cpp_int modulus_n{p * q};
     // std::cout << std::format("n is {}\n", modulus_n);
     std::cout << "n is " << modulus_n << '\n';
 
-    boost::multiprecision::cpp_int phi_of_n{(p-1) * (q-1)}; // totient
+    cpp_int phi_of_n{(p-1) * (q-1)}; // totient
     // std::cout << std::format("totient is {}\n", phi_of_n);
     std::cout << "totient is " << phi_of_n << '\n';
 
     // create a vector of candidates for e (encryption exponent)
-    std::vector<boost::multiprecision::cpp_int> e_candidates{};
+    std::vector<cpp_int> e_candidates{};
     for (int counter{2}; counter < phi_of_n; ++counter)
     {
         if (gcd(counter, phi_of_n) == 1)
@@ -58,7 +60,7 @@ int main()
     }
 
     std::cout << "\nSelect a value for e from the preceding list of values: ";
-    boost::multiprecision::cpp_int encryption_exponent;
+    cpp_int encryption_exponent;
     std::cin >> encryption_exponent;
     bool valid_choice{false};
     for (const auto item : e_candidates)
@@ -86,7 +88,7 @@ int main()
         }
     }
     // select a value d such that (d*e) mod phi_of_n == 1
-    boost::multiprecision::cpp_int d;
+    cpp_int d;
     bool sentinel{true}; // controls if a candidate for d is found
     for (int counter{2} ; sentinel; ++counter)
     {
@@ -107,7 +109,7 @@ int main()
     std::cin >> d;
 
     std::cout << "Enter a non-negative number less than " << modulus_n << " to encrypt: ";
-    boost::multiprecision::cpp_int plain_text;
+    cpp_int plain_text;
     std::cin >> plain_text; // check for validity
     while (plain_text < 0 || plain_text >= modulus_n)
     {
@@ -115,10 +117,10 @@ int main()
         std::cin >> plain_text;
     }
 
-    boost::multiprecision::cpp_int cipher_text{encrypt(plain_text, encryption_exponent, modulus_n)};
+    cpp_int cipher_text{encrypt(plain_text, encryption_exponent, modulus_n)};
     std::cout << "The cipher text is: " << cipher_text << '\n';
 
-    boost::multiprecision::cpp_int decrypted{decrypt(cipher_text, d, modulus_n)};
+    cpp_int decrypted{decrypt(cipher_text, d, modulus_n)};
     std::cout << "The decrypted text is: " << decrypted << '\n';
 
     std::cout << "Enter a string to encrypt: ";
@@ -126,7 +128,7 @@ int main()
     std::string string_plaintext;
     std::getline(std::cin, string_plaintext);
 
-    std::vector<boost::multiprecision::cpp_int> string_ciphertext{};
+    std::vector<cpp_int> string_ciphertext{};
     encrypt_string(string_plaintext, string_ciphertext, encryption_exponent, modulus_n);
     std::string encrypted_string{};
     for (const auto character : string_ciphertext)
@@ -175,7 +177,7 @@ int gcd(int a, int b)
     return b;
 }
 
-boost::multiprecision::cpp_int modularPow(boost::multiprecision::cpp_int message, boost::multiprecision::cpp_int encryption_exponent, boost::multiprecision::cpp_int modulus_n)
+cpp_int modularPow(cpp_int message, cpp_int encryption_exponent, cpp_int modulus_n)
 {
     boost::multiprecision::cpp_int c{1};
     for (int e{0}; e < encryption_exponent; ++e)
@@ -185,24 +187,24 @@ boost::multiprecision::cpp_int modularPow(boost::multiprecision::cpp_int message
     return c;
 }
 
-boost::multiprecision::cpp_int encrypt(boost::multiprecision::cpp_int plaintext, boost::multiprecision::cpp_int e, boost::multiprecision::cpp_int mod)
+cpp_int encrypt(cpp_int plaintext, cpp_int e, cpp_int mod)
 {
     return modularPow(plaintext, e, mod);
 }
 
-boost::multiprecision::cpp_int decrypt(boost::multiprecision::cpp_int cipher, boost::multiprecision::cpp_int d, boost::multiprecision::cpp_int mod)
+cpp_int decrypt(cpp_int cipher, cpp_int d, cpp_int mod)
 {
     return modularPow(cipher, d, mod);
 }
 
-void encrypt_string(std::string_view plaintext, std::vector<boost::multiprecision::cpp_int>& ciphertext, boost::multiprecision::cpp_int e, boost::multiprecision::cpp_int m)
+void encrypt_string(std::string_view plaintext, std::vector<cpp_int>& ciphertext, cpp_int e, cpp_int m)
 {
     for (const auto& character : plaintext)
     {
         ciphertext.push_back(encrypt(character, e, m));
     }
 }
-std::string decrypt_string(const std::vector<boost::multiprecision::cpp_int>& ciphertext, boost::multiprecision::cpp_int d, boost::multiprecision::cpp_int m)
+std::string decrypt_string(const std::vector<cpp_int>& ciphertext, cpp_int d, cpp_int m)
 {
     std::string s{};
     for (const auto& ascii : ciphertext)
