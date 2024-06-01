@@ -18,10 +18,20 @@ int main()
     std::cout << "Enter a prime number for p: ";
     int p; // must use a bigger type
     std::cin >> p;
+    while (!isPrime(p))
+    {
+        std::cout << "Please select a prime number: ";
+        std::cin >> p;
+    }
 
     std::cout << "Enter a prime number for q: ";
     int q; // must use a bigger type
     std::cin >> q;
+    while (!isPrime(q))
+    {
+        std::cout << "Please select a prime number: ";
+        std::cin >> q;
+    }
 
     int modulus_n{p * q};
     std::cout << std::format("n is {}\n", modulus_n);
