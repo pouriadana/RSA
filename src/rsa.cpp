@@ -36,7 +36,7 @@ int main()
     int modulus_n{p * q};
     std::cout << std::format("n is {}\n", modulus_n);
 
-    int phi_of_n{(p-1) * (q-1)};
+    int phi_of_n{(p-1) * (q-1)}; // totient
     std::cout << std::format("totient is {}\n", phi_of_n);
 
     // create a vector of candidates for e (encryption exponent)
@@ -96,6 +96,11 @@ int main()
     
     std::cout << "Candidate for d: " << d << '\n';
     std::cout << "Select a value for d--either the d candidate above or d plus a multiple of the totient: ";
+    for (int count{1}; count <= 5; ++count)
+    {
+        std::cout << d + (count * phi_of_n) << ' ';
+    }
+    std::cout << "...\n";
     std::cin >> d;
 
     std::cout << "Enter a non-negative number less than " << modulus_n << " to encrypt: ";
