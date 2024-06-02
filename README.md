@@ -24,3 +24,15 @@ This project provides a C++ implementation of the RSA public-key cryptography al
 ```
 g++ -std=c++20 rsa.cpp -I C:\Users\YOURNAME\Downloads\Compressed\multiprecision-Boost_1_85_0\include
 ```
+
+## Disclaimer for RSA Implementation
+
+The RSA encryption algorithm implementation provided in this repository is for educational and research purposes only. It is not recommended to use this implementation in production environments or in any situation where strong security is required.
+
+While every effort has been made to follow cryptographic best practices, the author of this repository does not guarantee the security of the implementation. Cryptography is a complex and nuanced field, and the security of cryptographic implementations can be compromised by subtle issues that are not apparent at the time of writing.
+
+Users are advised to use well-established libraries and implementations that have been thoroughly vetted by the cryptographic community for any applications requiring high security.
+
+By using or referencing the code in this repository, you acknowledge that you do so at your own risk, and you are responsible for understanding the risks involved in cryptographic implementations.
+
+The author of this repository accepts no liability for any damage or loss arising from the direct or indirect use of the provided code.
