@@ -1,5 +1,4 @@
 #include <boost/multiprecision/cpp_int.hpp>
-#include <format>
 #include <iostream>
 #include <string>
 #include <string_view>
@@ -37,11 +36,9 @@ int main()
     }
 
     cpp_int modulus_n{p * q};
-    // std::cout << std::format("n is {}\n", modulus_n);
     std::cout << "n is " << modulus_n << '\n';
 
     cpp_int phi_of_n{(p-1) * (q-1)}; // totient
-    // std::cout << std::format("totient is {}\n", phi_of_n);
     std::cout << "totient is " << phi_of_n << '\n';
 
     // create a vector of candidates for e (encryption exponent)
