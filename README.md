@@ -1,7 +1,7 @@
 # RSA in C++
 
 ## Overview
-This project provides a C++ implementation of the RSA public-key cryptography algorithm, utilizing the Boost.Multiprecision library's `cpp_int` class for high-precision integer calculations.
+This project provides a C++ implementation of the RSA public-key cryptography algorithm, utilizing the Boost.Multiprecision library's `cpp_int` class for high-precision integer calculations that involve large prime numbers.
 
 ## Features
 - **Encryption and Decryption**: Encrypts messages using a public key and decrypts them with the corresponding private key.
