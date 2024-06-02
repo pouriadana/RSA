@@ -87,7 +87,9 @@ int main()
             }
         }
     }
-    // select a value d such that (d*e) mod phi_of_n == 1
+    std::cout << "Public key is (" << encryption_exponent << ", " << modulus_n << ")\n";
+
+    // select decryption exponenet such that (d*e) mod phi_of_n == 1
     cpp_int d;
     bool sentinel{true}; // controls if a candidate for d is found
     for (int counter{2} ; sentinel; ++counter)
@@ -105,8 +107,9 @@ int main()
     {
         std::cout << d + (count * phi_of_n) << ' ';
     }
-    std::cout << "...\n";
+    std::cout << "...\n-->";
     std::cin >> d;
+    std::cout << "Private key is (" << d << ", " << modulus_n << ")\n";
 
     std::cout << "Enter a non-negative number less than " << modulus_n << " to encrypt: ";
     cpp_int plain_text;
