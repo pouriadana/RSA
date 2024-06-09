@@ -4,21 +4,25 @@
 #include <boost/random/uniform_int_distribution.hpp>
 
 using cpp_int = boost::multiprecision::cpp_int;
-constexpr unsigned int key_length{1024};
 class RSA {
 public:
-    RSA() 
+    RSA(unsigned int key_size = 64) 
     {
-        cpp_int lower_bound{_power(cpp_int{"2"}, key_length / 2 - 1)};
-        cpp_int upper_bound{_power(cpp_int{"2"}, key_length / 2)};
+        cpp_int lower_bound{_power(cpp_int{"2"}, key_size / 2 - 1)};
+        cpp_int upper_bound{_power(cpp_int{"2"}, key_size / 2)};
         p = _chooseRandom(lower_bound, upper_bound);
         q = _chooseRandom(lower_bound, upper_bound);
+        while (p == q) // make sure two numbers aren't the same
+        {
+            p = _chooseRandom(lower_bound, upper_bound);
+            q = _chooseRandom(lower_bound, upper_bound);
+        }
     }
 
     cpp_int getP() const { return p; }
     cpp_int getQ() const { return q; }
 private:
-    // two prime integers each with the size of key_length / 2
+    // two prime integers each with the size of key_size / 2
     cpp_int p{"0"};
     cpp_int q{"0"};
 
@@ -43,4 +47,7 @@ private:
 
         return select(eng);
     }
+
+    // TODO
+    // Add a primality test function
 };
