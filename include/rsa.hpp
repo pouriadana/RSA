@@ -9,8 +9,14 @@ class RSA {
 public:
     RSA() 
     {
-        
+        cpp_int lower_bound{_power(cpp_int{"2"}, key_length / 2 - 1)};
+        cpp_int upper_bound{_power(cpp_int{"2"}, key_length / 2)};
+        p = _chooseRandom(lower_bound, upper_bound);
+        q = _chooseRandom(lower_bound, upper_bound);
     }
+
+    cpp_int getP() const { return p; }
+    cpp_int getQ() const { return q; }
 private:
     // two prime integers each with the size of key_length / 2
     cpp_int p{"0"};
@@ -29,10 +35,10 @@ private:
     }
 
     // random number selection function
-    cpp_int _chooseRandom(unsigned int lower_bound, unsigned int upper_bound)
+    cpp_int _chooseRandom(cpp_int lower_bound, cpp_int upper_bound)
     {
-        boost::random::random_device rd;
-        boost::random::mt19937 eng(rd());
+        static boost::random::random_device rd;
+        static boost::random::mt19937 eng(rd());
         boost::random::uniform_int_distribution<cpp_int> select(lower_bound,upper_bound);
 
         return select(eng);
