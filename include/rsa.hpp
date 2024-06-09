@@ -50,4 +50,8 @@ private:
 
     // TODO
     // Add a primality test function
+    bool _isPrime(cpp_int n)
+    {
+        
+    }
 };
