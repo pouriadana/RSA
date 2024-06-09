@@ -27,4 +27,14 @@ private:
         }
         return n * _power(n, exponent - 1);
     }
+
+    // random number selection function
+    cpp_int _chooseRandom(unsigned int lower_bound, unsigned int upper_bound)
+    {
+        boost::random::random_device rd;
+        boost::random::mt19937 eng(rd());
+        boost::random::uniform_int_distribution<cpp_int> select(lower_bound,upper_bound);
+
+        return select(eng);
+    }
 };
