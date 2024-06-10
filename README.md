@@ -10,7 +10,7 @@ This project provides a header-only C++ implementation of the RSA public-key cry
 
 ## Dependencies
 - A C++ compiler with support for C++20 support or later (I used the GNU C++ compiler)
-- The Boost [library](https://www.boost.org/users/download/)
+- The Boost [Library](https://www.boost.org/users/download/)
 
 ## Installation
 1. Download the Boost library from the release page
