@@ -5,6 +5,7 @@
 #include <boost/random/uniform_int_distribution.hpp>
 #include <string>
 #include <string_view>
+#include <vector>
 
 using cpp_int = boost::multiprecision::cpp_int;
 class RSA {
@@ -46,14 +47,16 @@ public:
         return public_key;
     }
 
-    void encrypt(std::string_view plaintext)
+    const std::vector<cpp_int> encrypt(std::string_view plaintext)
     {
+        std::vector<cpp_int> ciphertext{}; 
         for (const auto& item : plaintext)
         {
-            std::cout << _modularPow(item, encryption_exponent, modulus_n) << '\n';
+            ciphertext.push_back(_modularPow(item, encryption_exponent, modulus_n));
         }
+        return ciphertext;
     }
-
+    
 
 private:
     cpp_int p{"0"};                     // two prime integers each with the size of key_size / 2
@@ -137,10 +140,10 @@ private:
     }
 
     // modular exponentiation; key part of encryption/decryption calculations
-    cpp_int _modularPow(cpp_int message, cpp_int encryption_exponent, cpp_int modulus_n)
+    cpp_int _modularPow(cpp_int message, cpp_int exponent, cpp_int modulus_n)
     {
         boost::multiprecision::cpp_int c{"1"};
-        for (cpp_int e{0}; e < encryption_exponent; ++e)
+        for (cpp_int e{0}; e < exponent; ++e)
         {
             c = message * c % modulus_n;
         }
