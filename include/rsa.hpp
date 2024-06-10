@@ -29,7 +29,7 @@ public:
             q = _chooseRandom(lower_bound, upper_bound);
         }
         modulus_n = p * q;
-        phi_of_n = (p - 1) * (q - 1);
+        totient = (p - 1) * (q - 1);
     }
 
     // get functions
@@ -44,7 +44,7 @@ private:
     cpp_int modulus_n{"0"};
 
     // totient (phi of n) used in calculating encryption/decryption key values
-    cpp_int phi_of_n{"0"};
+    cpp_int totient{"0"};
 
     // auxilary functions
     //
