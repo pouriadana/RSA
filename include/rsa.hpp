@@ -59,7 +59,7 @@ private:
     }
 
     // random number selection function
-    cpp_int _chooseRandom(cpp_int lower_bound, cpp_int upper_bound)
+    cpp_int _chooseRandom(const cpp_int& lower_bound, const cpp_int& upper_bound)
     {
         static boost::random::random_device rd;
         static boost::random::mt19937 eng(rd());
@@ -70,7 +70,7 @@ private:
 
     // TODO
     // Add a primality test function that supports 128 bit and above
-    bool _isPrime(cpp_int n)
+    bool _isPrime(const cpp_int& n)
     {
         bool is_prime{true};
         cpp_int n_sqrt{boost::multiprecision::sqrt(n)};
