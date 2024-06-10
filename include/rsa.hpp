@@ -56,7 +56,16 @@ public:
         }
         return ciphertext;
     }
-    
+
+    std::string decrypt(std::vector<cpp_int> cipher)
+    {
+        std::string deciphered{""};
+        for (const auto& item : cipher)
+        {
+            deciphered += static_cast<int>(_modularPow(item, decryption_exponent, modulus_n));
+        }
+        return deciphered;
+    }
 
 private:
     cpp_int p{"0"};                     // two prime integers each with the size of key_size / 2
