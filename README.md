@@ -22,7 +22,7 @@ This project provides a C++ implementation of the RSA public-key cryptography al
 ```
 3. Compile it using the following command:
 ```
-g++ -std=c++20 rsa.cpp -I C:\Users\YOURNAME\Downloads\Compressed\multiprecision-Boost_1_85_0\include
+g++ driver.cpp -std=c++20 -I D:\boost-extracted\boost_1_85_0 -L D:\boost-extracted\boost_1_85_0\stage\lib -lboost_random-mgw13-mt-x64-1_85
 ```
 
 ## Disclaimer for RSA Implementation
