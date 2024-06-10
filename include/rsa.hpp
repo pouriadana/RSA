@@ -49,7 +49,8 @@ private:
     cpp_int q{"0"};
     cpp_int modulus_n{"0"};             // modulus n; part of encryption/decryption keys
     cpp_int totient{"0"};               // totient (phi of n) used in calculating encryption/decryption key values
-    cpp_int encryption_exponent{"0"};   // encryption exponent used to encrypt messages
+    cpp_int encryption_exponent{"0"};   // encryption exponent used to encrypt plaintext messages
+    cpp_int decryption_exponent{"0"};   // decryption exponent used to decrypt ciphertext
 
     // auxilary functions
     //
@@ -111,5 +112,16 @@ private:
         {
             encryption_exponent = _chooseRandom(cpp_int{"2"}, totient);
         }
+    }
+
+    // decryption exponent function
+    void _setDecryptionExponent()
+    {
+        cpp_int multiplier{"2"};
+        while ((multiplier * encryption_exponent % totient) != 1)
+        {
+            ++multiplier;
+        }
+        decryption_exponent = multiplier;
     }
 };
