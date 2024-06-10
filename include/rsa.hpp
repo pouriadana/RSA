@@ -1,3 +1,4 @@
+#include <array>
 #include <boost/multiprecision/cpp_int.hpp>
 #include <boost/random.hpp>
 #include <boost/random/random_device.hpp>
@@ -31,12 +32,16 @@ public:
         modulus_n = p * q;
         totient = (p - 1) * (q - 1);
         _setEncryptionExponent();
-        std::cout << "Public key is " << encryption_exponent << ", " << totient << '\n';
     }
 
     // get functions
     cpp_int getP() const { return p; }
     cpp_int getQ() const { return q; }
+    const std::array<cpp_int, 2> getPublicKey() const 
+    {
+        std::array public_key {encryption_exponent, totient};
+        return public_key;
+    }
 
 
 private:
