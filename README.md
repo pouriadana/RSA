@@ -10,17 +10,23 @@ This project provides a C++ implementation of the RSA public-key cryptography al
 
 ## Dependencies
 - A C++ compiler with support for C++11 or later (I used the GNU C++ compiler)
-- The Boost.Multiprecision [library](https://github.com/boostorg/multiprecision)
+- The Boost [library](https://www.boost.org/users/download/)
 
 ## Installation
-1. Download the Boost.Multiprecision library from the release page
-2. Add its location to `C/C++: Edit Configurations (JSON)` file in VSCode like so:
+1. Download the Boost library from the release page
+2. Extract the compressed file to a directory which will be the installation directory eventually
+3. In the root folder of the extracted file, open Terminal (Windows 11) or Command Line and run,
+```
+C:\boost_1_52_0> bootstrap.bat mingw
+C:\boost_1_52_0> b2 toolset=gcc
+```
+4. Add its location to `C/C++: Edit Configurations (JSON)` file in VSCode like so:
 ```
 "includePath": ["${workspaceFolder}/**",
-                "C:\\Users\\YOURNAME\\Downloads\\Compressed\\multiprecision-Boost_1_85_0\\include\\**"
+                "D:/boost-extracted/boost_1_85_0/**"
 ]
 ```
-3. Compile it using the following command:
+5. Compile it using the following command:
 ```
 g++ driver.cpp -std=c++20 -I D:\boost-extracted\boost_1_85_0 -L D:\boost-extracted\boost_1_85_0\stage\lib -lboost_random-mgw13-mt-x64-1_85
 ```
