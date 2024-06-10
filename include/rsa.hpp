@@ -30,11 +30,14 @@ public:
         }
         modulus_n = p * q;
         totient = (p - 1) * (q - 1);
+        _setEncryptionExponent();
+        std::cout << "Public key is " << encryption_exponent << ", " << totient << '\n';
     }
 
     // get functions
     cpp_int getP() const { return p; }
     cpp_int getQ() const { return q; }
+
 
 private:
     cpp_int p{"0"};                     // two prime integers each with the size of key_size / 2
@@ -96,7 +99,7 @@ private:
     }
 
     // encryption exponent function
-    void _setEncryptionExponent(cpp_int totient)
+    void _setEncryptionExponent()
     {
         encryption_exponent = _chooseRandom(cpp_int{"2"}, totient);
         while (_gcd(encryption_exponent, totient) != 1)
