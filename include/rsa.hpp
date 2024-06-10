@@ -17,6 +17,17 @@ public:
             p = _chooseRandom(lower_bound, upper_bound);
             q = _chooseRandom(lower_bound, upper_bound);
         }
+        while (!_isPrime(p))
+        {
+            //std::cout << "p is " << p << '\n';
+            //std::cout << "p is not prime\n";
+            p = _chooseRandom(lower_bound, upper_bound);
+        }
+        while (!_isPrime(q))
+        {
+            //std::cout << "q is not prime\n";
+            q = _chooseRandom(lower_bound, upper_bound);
+        }
     }
 
     cpp_int getP() const { return p; }
@@ -52,6 +63,16 @@ private:
     // Add a primality test function
     bool _isPrime(cpp_int n)
     {
-        
+        bool is_prime{true};
+        cpp_int n_sqrt{boost::multiprecision::sqrt(n)};
+        for (cpp_int div{"2"}; div <= n_sqrt; ++div)
+        {
+            if (n % div == 0)
+            {
+                is_prime = false;
+                break;
+            }
+        }
+        return is_prime;
     }
 };
