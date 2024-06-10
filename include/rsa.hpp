@@ -101,7 +101,7 @@ private:
     // encryption exponent function
     void _setEncryptionExponent()
     {
-        encryption_exponent = _chooseRandom(cpp_int{"2"}, totient);
+        encryption_exponent = _chooseRandom(cpp_int{"2"}, totient - 1);
         while (_gcd(encryption_exponent, totient) != 1)
         {
             encryption_exponent = _chooseRandom(cpp_int{"2"}, totient);
