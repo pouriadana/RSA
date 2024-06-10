@@ -3,6 +3,8 @@
 #include <boost/random.hpp>
 #include <boost/random/random_device.hpp>
 #include <boost/random/uniform_int_distribution.hpp>
+#include <string>
+#include <string_view>
 
 using cpp_int = boost::multiprecision::cpp_int;
 class RSA {
@@ -32,6 +34,7 @@ public:
         modulus_n = p * q;
         totient = (p - 1) * (q - 1);
         _setEncryptionExponent();
+        _setDecryptionExponent();
     }
 
     // get functions
@@ -41,6 +44,14 @@ public:
     {
         std::array public_key {encryption_exponent, totient};
         return public_key;
+    }
+
+    void encrypt(std::string_view plaintext)
+    {
+        for (const auto& item : plaintext)
+        {
+            std::cout << _modularPow(item, encryption_exponent, modulus_n) << '\n';
+        }
     }
 
 
