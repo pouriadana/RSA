@@ -35,16 +35,13 @@ public:
     // get functions
     cpp_int getP() const { return p; }
     cpp_int getQ() const { return q; }
+
 private:
-    // two prime integers each with the size of key_size / 2
-    cpp_int p{"0"};
+    cpp_int p{"0"};                     // two prime integers each with the size of key_size / 2
     cpp_int q{"0"};
-
-    // modulus n; part of encryption/decryption keys
-    cpp_int modulus_n{"0"};
-
-    // totient (phi of n) used in calculating encryption/decryption key values
-    cpp_int totient{"0"};
+    cpp_int modulus_n{"0"};             // modulus n; part of encryption/decryption keys
+    cpp_int totient{"0"};               // totient (phi of n) used in calculating encryption/decryption key values
+    cpp_int encryption_exponent{"0"};   // encryption exponent used to encrypt messages
 
     // auxilary functions
     //
@@ -83,5 +80,28 @@ private:
             }
         }
         return is_prime;
+    }
+
+    // greatest common divisor function
+    cpp_int _gcd(cpp_int a, cpp_int b)
+    {
+        cpp_int r{a % b};
+        while (r)
+        {
+            a = b;
+            b = r;
+            r = a % b;
+        }
+        return b;
+    }
+
+    // encryption exponent function
+    void _setEncryptionExponent(cpp_int totient)
+    {
+        encryption_exponent = _chooseRandom(cpp_int{"2"}, totient);
+        while (_gcd(encryption_exponent, totient) != 1)
+        {
+            encryption_exponent = _chooseRandom(cpp_int{"2"}, totient);
+        }
     }
 };
