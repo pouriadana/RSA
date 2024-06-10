@@ -28,14 +28,23 @@ public:
             //std::cout << "q is not prime\n";
             q = _chooseRandom(lower_bound, upper_bound);
         }
+        modulus_n = p * q;
+        phi_of_n = (p - 1) * (q - 1);
     }
 
+    // get functions
     cpp_int getP() const { return p; }
     cpp_int getQ() const { return q; }
 private:
     // two prime integers each with the size of key_size / 2
     cpp_int p{"0"};
     cpp_int q{"0"};
+
+    // modulus n; part of encryption/decryption keys
+    cpp_int modulus_n{"0"};
+
+    // totient (phi of n) used in calculating encryption/decryption key values
+    cpp_int phi_of_n{"0"};
 
     // auxilary functions
     //
@@ -60,7 +69,7 @@ private:
     }
 
     // TODO
-    // Add a primality test function
+    // Add a primality test function that supports 128 bit and above
     bool _isPrime(cpp_int n)
     {
         bool is_prime{true};
