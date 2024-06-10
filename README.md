@@ -1,7 +1,7 @@
 # RSA in C++
 
 ## Overview
-This project provides a C++ implementation of the RSA public-key cryptography algorithm, utilizing the Boost.Multiprecision library's `cpp_int` class for high-precision integer calculations that involve large prime numbers.
+This project provides a header-only C++ implementation of the RSA public-key cryptography algorithm, utilizing the Boost library for high-precision integer calculations that involve large prime numbers.
 
 ## Features
 - **Encryption and Decryption**: Encrypts messages using a public key and decrypts them with the corresponding private key.
@@ -9,7 +9,7 @@ This project provides a C++ implementation of the RSA public-key cryptography al
 - **Basic Error Handling**: Includes some error handling to improve user experience.
 
 ## Dependencies
-- A C++ compiler with support for C++11 or later (I used the GNU C++ compiler)
+- A C++ compiler with support for C++20 support or later (I used the GNU C++ compiler)
 - The Boost [library](https://www.boost.org/users/download/)
 
 ## Installation
@@ -30,6 +30,10 @@ C:\boost_1_52_0> b2 toolset=gcc
 ```
 g++ driver.cpp -std=c++20 -I D:\boost-extracted\boost_1_85_0 -L D:\boost-extracted\boost_1_85_0\stage\lib -lboost_random-mgw13-mt-x64-1_85
 ```
+
+## Challenges
+- Primality test function fails to work with key sizes larger than 64 bits
+- Modular power function, which does the encryption/decryption calculation, fails to work with anything higher than 16 bits. 
 
 ## Disclaimer for RSA Implementation
 
