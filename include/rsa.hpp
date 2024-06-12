@@ -33,7 +33,7 @@ public:
             q = _chooseRandom(lower_bound, upper_bound);
         }
         modulus_n = p * q;
-        totient = (p - 1) * (q - 1);
+        totient = _lcm(p - 1, q - 1);
         _setEncryptionExponent();
         _setDecryptionExponent();
     }
@@ -157,5 +157,25 @@ private:
             c = message * c % modulus_n;
         }
         return c;
+    }
+
+    // least common multiplier calculator function for Carmichael's totient function
+    cpp_int _lcm(cpp_int n, cpp_int m)
+    {
+        if (n > m)
+        {
+            cpp_int tmp{n};
+            n = m;
+            m = tmp;
+        }
+        else if (n == m)
+        {
+            return n;
+        }
+
+        cpp_int multiply{2};
+        for (; n * multiply % m != 0; ++multiply)
+        ;
+        return multiply * n;
     }
 };
