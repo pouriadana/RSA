@@ -140,6 +140,7 @@ private:
     // decryption exponent function
     void _setDecryptionExponent()
     {
+        // Extended Euclidean algorithm
         cpp_int old_r{encryption_exponent};
         cpp_int r{totient};
         cpp_int old_s{"1"}, s{"0"};
