@@ -163,6 +163,11 @@ private:
             old_t = temp;
         }
         decryption_exponent = old_s;
+
+        while (decryption_exponent < 0)
+        {
+            decryption_exponent += totient;
+        }
     }
 
     // modular exponentiation; key part of encryption/decryption calculations
