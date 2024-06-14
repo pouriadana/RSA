@@ -173,7 +173,7 @@ private:
     // modular exponentiation; key part of encryption/decryption calculations
     cpp_int _modularPow(cpp_int message, cpp_int exponent, cpp_int modulus_n)
     {
-        boost::multiprecision::cpp_int c{"1"};
+        cpp_int c{"1"};
         for (cpp_int e{"0"}; e < exponent; ++e)
         {
             c = message * c % modulus_n;
