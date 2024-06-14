@@ -173,12 +173,24 @@ private:
     // modular exponentiation; key part of encryption/decryption calculations
     cpp_int _modularPow(cpp_int message, cpp_int exponent, cpp_int modulus_n)
     {
-        cpp_int c{"1"};
-        for (cpp_int e{"0"}; e < exponent; ++e)
+        // cpp_int c{"1"};
+        // for (cpp_int e{"0"}; e < exponent; ++e)
+        // {
+        //     c = message * c % modulus_n;
+        // }
+        // return c;
+        cpp_int result{"1"};
+        message = message % modulus_n;
+        while (exponent > 0)
         {
-            c = message * c % modulus_n;
+            if (exponent % 2 == 1)
+            {
+                result = (result * message) % modulus_n;
+            }
+            exponent = exponent / 2;
+            message = (message * message) % modulus_n;
         }
-        return c;
+        return result;
     }
 
     // least common multiplier calculator function for Carmichael's totient function
