@@ -142,8 +142,8 @@ private:
     {
         cpp_int old_r{encryption_exponent};
         cpp_int r{totient};
-        cpp_int old_s{1}, s{0};
-        cpp_int old_t{0}, t{1};
+        cpp_int old_s{"1"}, s{"0"};
+        cpp_int old_t{"0"}, t{"1"};
 
         while (r)
         {
@@ -168,7 +168,7 @@ private:
     cpp_int _modularPow(cpp_int message, cpp_int exponent, cpp_int modulus_n)
     {
         boost::multiprecision::cpp_int c{"1"};
-        for (cpp_int e{0}; e < exponent; ++e)
+        for (cpp_int e{"0"}; e < exponent; ++e)
         {
             c = message * c % modulus_n;
         }
