@@ -33,7 +33,7 @@ g++ driver.cpp -std=c++20 -I D:\boost-extracted\boost_1_85_0 -L D:\boost-extract
 
 ## Challenges
 - Primality test function fails to work with key sizes larger than 64 bits
-- Modular power function, which does the encryption/decryption calculation, fails to work with anything higher than 16 bits. 
+- Modular power function, which does the encryption/decryption calculation, fails to work with anything higher than 32 bits. 
 
 ## Disclaimer for RSA Implementation
 
