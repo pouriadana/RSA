@@ -140,12 +140,28 @@ private:
     // decryption exponent function
     void _setDecryptionExponent()
     {
-        cpp_int multiplier{"2"};
-        while ((multiplier * encryption_exponent % totient) != 1)
+        cpp_int old_r{encryption_exponent};
+        cpp_int r{totient};
+        cpp_int old_s{1}, s{0};
+        cpp_int old_t{0}, t{1};
+
+        while (r)
         {
-            ++multiplier;
+            cpp_int q{old_r / r};
+
+            cpp_int temp{r};
+            r = old_r - q * temp;
+            old_r = temp;
+
+            temp = s;
+            s = old_s - q * temp;
+            old_s = temp;
+
+            temp = t;
+            t = old_t - q * t;
+            old_t = temp;
         }
-        decryption_exponent = multiplier;
+        decryption_exponent = old_s;
     }
 
     // modular exponentiation; key part of encryption/decryption calculations
