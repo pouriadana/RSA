@@ -23,13 +23,10 @@ public:
         }
         while (!_isPrime(p))
         {
-            //std::cout << "p is " << p << '\n';
-            //std::cout << "p is not prime\n";
             p = _chooseRandom(lower_bound, upper_bound);
         }
         while (!_isPrime(q))
         {
-            //std::cout << "q is not prime\n";
             q = _chooseRandom(lower_bound, upper_bound);
         }
         modulus_n = p * q;
