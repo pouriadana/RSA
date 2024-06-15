@@ -173,12 +173,6 @@ private:
     // modular exponentiation; key part of encryption/decryption calculations
     cpp_int _modularPow(cpp_int message, cpp_int exponent, cpp_int modulus_n)
     {
-        // cpp_int c{"1"};
-        // for (cpp_int e{"0"}; e < exponent; ++e)
-        // {
-        //     c = message * c % modulus_n;
-        // }
-        // return c;
         cpp_int result{"1"};
         message = message % modulus_n;
         while (exponent > 0)
