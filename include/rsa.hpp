@@ -10,7 +10,7 @@
 using cpp_int = boost::multiprecision::cpp_int;
 class RSA {
 public:
-    RSA(unsigned int key_size = 32) 
+    RSA(unsigned int key_size = 64) 
     {
         cpp_int lower_bound{_power(cpp_int{"2"}, key_size / 2 - 1)};
         cpp_int upper_bound{_power(cpp_int{"2"}, key_size / 2)};
@@ -187,20 +187,21 @@ private:
     // least common multiplier calculator function for Carmichael's totient function
     cpp_int _lcm(cpp_int n, cpp_int m)
     {
-        if (n > m)
-        {
-            cpp_int tmp{n};
-            n = m;
-            m = tmp;
-        }
-        else if (n == m)
-        {
-            return n;
-        }
+        // if (n > m)
+        // {
+        //     cpp_int tmp{n};
+        //     n = m;
+        //     m = tmp;
+        // }
+        // else if (n == m)
+        // {
+        //     return n;
+        // }
 
-        cpp_int multiply{2};
-        for (; n * multiply % m != 0; ++multiply)
-        ;
-        return multiply * n;
+        // cpp_int multiply{2};
+        // for (; n * multiply % m != 0; ++multiply)
+        // ;
+        // return multiply * n;
+        return (n * m) / _gcd(n, m);
     }
 };
