@@ -187,21 +187,6 @@ private:
     // least common multiplier calculator function for Carmichael's totient function
     cpp_int _lcm(cpp_int n, cpp_int m)
     {
-        // if (n > m)
-        // {
-        //     cpp_int tmp{n};
-        //     n = m;
-        //     m = tmp;
-        // }
-        // else if (n == m)
-        // {
-        //     return n;
-        // }
-
-        // cpp_int multiply{2};
-        // for (; n * multiply % m != 0; ++multiply)
-        // ;
-        // return multiply * n;
         return (n * m) / _gcd(n, m);
     }
 };
