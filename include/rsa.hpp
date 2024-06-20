@@ -94,8 +94,6 @@ private:
         return select(eng);
     }
 
-    // TODO
-    // Add a primality test function that supports 128 bit and above
     bool _isPrime(const cpp_int& n)
     {
         // Miller-Rabin
