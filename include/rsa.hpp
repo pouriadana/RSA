@@ -202,7 +202,7 @@ private:
             {
                 result = (result * message) % modulus_n;
             }
-            exponent = exponent / 2;
+            exponent >>= 1; // same as division by 2
             message = (message * message) % modulus_n;
         }
         return result;
