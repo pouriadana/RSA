@@ -5,6 +5,7 @@ This project provides a header-only C++ implementation of the RSA public-key cry
 
 ## Features
 - **Encryption and Decryption**: Encrypts messages using a public key and decrypts them with the corresponding private key.
+- **Arbitrary Key Size**: Default key size is 512 bits and perfroms fast. Any larger key size can be set by the constructor.
 - **Large Integer Support**: Leverages Boost.Multiprecision for robust handling of large integers crucial for RSA security.
 - **Basic Error Handling**: Includes some error handling to improve user experience.
 
@@ -31,8 +32,9 @@ C:\boost_1_52_0> b2 toolset=gcc
 g++ driver.cpp -std=c++20 -I D:\boost-extracted\boost_1_85_0 -L D:\boost-extracted\boost_1_85_0\stage\lib -lboost_random-mgw13-mt-x64-1_85
 ```
 
-## Challenges
-- Primality test function fails to work with key sizes larger than 64 bits
+## Overcome Challenges
+- Primality test function used to fail to work with key sizes larger than 64 bits. It now works with any arbitrary key size.
+- Modular exponentiation function used to fail to work with key sizes larger than 16 bits. It now works with any arbitrary key size.
 
 ## Disclaimer for RSA Implementation
 
