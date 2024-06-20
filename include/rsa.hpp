@@ -10,7 +10,7 @@
 using cpp_int = boost::multiprecision::cpp_int;
 class RSA {
 public:
-    RSA(unsigned int key_size = 64) 
+    RSA(unsigned int key_size = 1024) 
     {
         cpp_int lower_bound{_power(cpp_int{"2"}, key_size / 2 - 1)};
         cpp_int upper_bound{_power(cpp_int{"2"}, key_size / 2)};
