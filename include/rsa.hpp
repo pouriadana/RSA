@@ -43,6 +43,7 @@ public:
         std::array public_key {encryption_exponent, totient};
         return public_key;
     }
+    // END get functions
 
     const std::vector<cpp_int> encrypt(std::string_view plaintext)
     {
@@ -94,6 +95,7 @@ private:
         return select(eng);
     }
 
+    // Primality test function
     bool _isPrime(const cpp_int& n)
     {
         // Miller-Rabin
@@ -148,7 +150,7 @@ private:
         return b;
     }
 
-    // encryption exponent function
+    // set encryption exponent function
     void _setEncryptionExponent()
     {
         encryption_exponent = _chooseRandom(cpp_int{"2"}, totient - 1);
@@ -158,7 +160,7 @@ private:
         }
     }
 
-    // decryption exponent function
+    // set decryption exponent function
     void _setDecryptionExponent()
     {
         // Extended Euclidean algorithm
@@ -191,7 +193,7 @@ private:
         }
     }
 
-    // modular exponentiation; key part of encryption/decryption calculations
+    // modular exponentiation function; key part of encryption/decryption calculations
     cpp_int _modularPow(cpp_int message, cpp_int exponent, cpp_int modulus_n)
     {
         cpp_int result{"1"};
@@ -214,7 +216,7 @@ private:
         return (n * m) / _gcd(n, m);
     }
 
-    // Takes the log base 2 of a number e.g _log2(8) -> 3
+    // log base2 function; Takes the log base 2 of a number e.g _log2(8) -> 3
     unsigned long long _log2(cpp_int n)
     {
         unsigned long long result{0};
