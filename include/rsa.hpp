@@ -98,17 +98,59 @@ private:
     // Add a primality test function that supports 128 bit and above
     bool _isPrime(const cpp_int& n)
     {
-        bool is_prime{true};
-        cpp_int n_sqrt{boost::multiprecision::sqrt(n)};
-        for (cpp_int div{"2"}; div <= n_sqrt; ++div)
+        // bool is_prime{true};
+        // cpp_int n_sqrt{boost::multiprecision::sqrt(n)};
+        // for (cpp_int div{"2"}; div <= n_sqrt; ++div)
+        // {
+        //     if (n % div == 0)
+        //     {
+        //         is_prime = false;
+        //         break;
+        //     }
+        // }
+        // return is_prime;
+
+        // Miller-Rabin
+        // First rewrite n-1 as 2^s * d;
+        if (n % 2 == 0)
         {
-            if (n % div == 0)
+            return false;
+        }
+
+        unsigned long long s{_log2(n - 1) - 1};
+        while (s > 0)
+        {
+            if ((n - 1) % _power(cpp_int{"2"}, s) == 0)
             {
-                is_prime = false;
                 break;
             }
+            --s;
         }
-        return is_prime;
+        cpp_int d{(n - 1) / _power(cpp_int{"2"}, s)};
+
+        // std::cout << "s is " << s << " and d is " << d << "\n";
+
+        int precision{40}; // the number of times a number "a" is selected such that 2 <= a <= n - 2 and is tested for compositeness
+        while (precision--)
+        {
+            cpp_int a{_chooseRandom(cpp_int{"2"}, n - 2)};
+            bool possible{false};
+            for (unsigned long long count{0}; count < s; ++count)
+            {
+                cpp_int z{_modularPow(a, _power(cpp_int{"2"}, count) * d, n)};
+                // std::cout << "z is " << z << '\n';
+                if (z == n - 1 || z == 1)
+                {
+                    possible = true;
+                }
+            }
+            if (!possible)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     // greatest common divisor function
@@ -188,5 +230,17 @@ private:
     cpp_int _lcm(cpp_int n, cpp_int m)
     {
         return (n * m) / _gcd(n, m);
+    }
+
+    // Takes the log base 2 of a number e.g _log2(8) -> 3
+    unsigned long long _log2(cpp_int n)
+    {
+        unsigned long long result{0};
+        while (n > 1)
+        {
+            n >>= 1; // same as dividing by 2
+            ++result; 
+        }
+        return result;
     }
 };
