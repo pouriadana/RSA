@@ -1,7 +1,7 @@
 # RSA in C++
 
 ## Overview
-This project provides a header-only C++ implementation of the RSA public-key cryptography algorithm, utilizing the Boost library for high-precision integer calculations that involve large prime numbers.
+This project provides a header-only C++ implementation of the RSA public-key cryptography algorithm, utilizing the Boost library for high-precision integer calculations that involve large prime numbers. This implemetation supports up to 2048 bit key sizes. Larger key sizes can be used as well given it is run on a strong enough CPU.
 
 ## Features
 - **Encryption and Decryption**: Encrypts messages using a public key and decrypts them with the corresponding private key.
@@ -14,8 +14,8 @@ This project provides a header-only C++ implementation of the RSA public-key cry
 - The Boost [Library](https://www.boost.org/users/download/)
 
 ## Installation
-1. Download the Boost library from the release page
-2. Extract the compressed file to a directory which will be the installation directory eventually
+1. Download the Boost library from the release page.
+2. Extract the compressed file to a directory which will be the installation directory, eventually.
 3. In the root folder of the extracted file, open Terminal (Windows 11) or Command Line and run,
 ```
 C:\boost_1_52_0> bootstrap.bat mingw
