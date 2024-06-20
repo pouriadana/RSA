@@ -98,18 +98,6 @@ private:
     // Add a primality test function that supports 128 bit and above
     bool _isPrime(const cpp_int& n)
     {
-        // bool is_prime{true};
-        // cpp_int n_sqrt{boost::multiprecision::sqrt(n)};
-        // for (cpp_int div{"2"}; div <= n_sqrt; ++div)
-        // {
-        //     if (n % div == 0)
-        //     {
-        //         is_prime = false;
-        //         break;
-        //     }
-        // }
-        // return is_prime;
-
         // Miller-Rabin
         // First rewrite n-1 as 2^s * d;
         if (n % 2 == 0)
@@ -128,8 +116,6 @@ private:
         }
         cpp_int d{(n - 1) / _power(cpp_int{"2"}, s)};
 
-        // std::cout << "s is " << s << " and d is " << d << "\n";
-
         int precision{40}; // the number of times a number "a" is selected such that 2 <= a <= n - 2 and is tested for compositeness
         while (precision--)
         {
@@ -138,7 +124,6 @@ private:
             for (unsigned long long count{0}; count < s; ++count)
             {
                 cpp_int z{_modularPow(a, _power(cpp_int{"2"}, count) * d, n)};
-                // std::cout << "z is " << z << '\n';
                 if (z == n - 1 || z == 1)
                 {
                     possible = true;
@@ -149,7 +134,6 @@ private:
                 return false;
             }
         }
-
         return true;
     }
 
